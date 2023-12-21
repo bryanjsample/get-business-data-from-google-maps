@@ -10,6 +10,8 @@
   
 - Link to search result in list
   - `<a class="hfpxzc`
+- Search Results XPATH to scroll
+  - `/html/body/div[2]/div[3]/div[8]/div[9]/div/div/div[1]/div[2]/div/div[1]/div/div/div[1]/div[1]`
 
 
 ### In result page 
