@@ -17,25 +17,25 @@
 ### In result page 
 
 - **Name of Business**
-  - `<h1 class="DUwDvf lfPIob">`
+  - `span class = DUwDvf lfPIob`
+- **Reviews**
+  - `F7nice `
+    - `<span aria-hidden="true">5.0</span>`
 - **Address**
   - `<<div class="Io6YTe fontBodyMedium kR99db ">`
-- **Phone Number**
-  - `<div class="Io6YTe fontBodyMedium kR99db ">`
-- **Reviews**
-  - `<div class="F7nice ">`
-    - `<span aria-hidden="true">5.0</span>`
 - **Hours**
   - `<div class="OqCZI fontBodyMedium VrynGf WVXvdc">`
     - Table
-      - `<div class="t39EBf GUrTXd">`
+      - `<table class="eK4R0e fontBodyMedium">`
       - Day
-        - `<td class="ylH6lf ">`
+        - `<td class="ylH6lf fontTitleSmall ">`
       - Hours
         - `<td class="mxowUb">`
           - `<li class="G8aQO">`
 - **Website**
   - `<a class="CsEnBe" href="">` 
+- **Phone Number**
+  - `<div class="Io6YTe fontBodyMedium kR99db ">`
 
 ---
 
@@ -49,3 +49,8 @@
    4. If theres a phone number save to list
    5. If there are listed hours save to list
    6. If there are reviews save to list
+
+`m6QErb tLjsW eKbjU ` reached end of list div class
+`<span class="
+
+">You've reached the end of the list.</span>` text at end of list
