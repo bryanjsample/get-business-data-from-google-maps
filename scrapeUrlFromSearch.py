@@ -67,5 +67,5 @@ def list_urls(href_list):
                         if href not in href_list:
                             #add it to the list
                             href_list.append(href)
-    driver.quit
+    driver.quit()
         

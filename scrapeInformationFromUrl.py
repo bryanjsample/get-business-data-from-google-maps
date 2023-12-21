@@ -1,14 +1,10 @@
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
 
 def scrape(driver, url, business_information):
-    options = webdriver.ChromeOptions()
-    options.add_experimental_option('detach', True)
-    driver = webdriver.Chrome(options = options)
 
     driver.get(url)
-    time.sleep(1)
+    time.sleep(2)
     #print name
     try:
         name_element = driver.find_element(By.XPATH, '//*[@id="QA0Szd"]/div/div/div[1]/div[2]/div/div[1]/div/div/div[2]/div/div[1]/div[1]/h1')
@@ -18,13 +14,13 @@ def scrape(driver, url, business_information):
     #print rating
     try:
         rating_element = driver.find_element(By.XPATH, '//*[@id="QA0Szd"]/div/div/div[1]/div[2]/div/div[1]/div/div/div[2]/div/div[1]/div[2]/div/div[1]/div[2]/span[1]/span[1]')
-        rating = rating_element..get_attribute('textContent')
+        rating = rating_element.get_attribute('textContent')
     except:
         rating = 'There is no rating.'
     #print address
     try:
         address_element = driver.find_element(By.XPATH, '//*[@id="QA0Szd"]/div/div/div[1]/div[2]/div/div[1]/div/div/div[7]/div[3]/button/div/div[2]/div[1]')
-        address = address_element..get_attribute('textContent')
+        address = address_element.get_attribute('textContent')
     except:
         address = 'There is no address.'
     #print hours
