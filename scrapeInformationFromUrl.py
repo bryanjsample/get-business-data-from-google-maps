@@ -19,13 +19,13 @@ def scrape(driver, url, business_information):
         rating = 'There is no rating.'
     #print address
     try:
-        address_element = driver.find_element(By.XPATH, '//*[@id="QA0Szd"]/div/div/div[1]/div[2]/div/div[1]/div/div/div[7]/div[3]/button/div/div[2]/div[1]')
+        address_element = driver.find_element(By.CLASS_NAME, value='RcCsl fVHpi w4vB1d NOE9ve M0S7ae AG25L ')
         address = address_element.get_attribute('textContent')
     except:
         address = 'There is no address.'
     #print hours
     try:
-        hours_table = driver.find_element(By.XPATH, '//*[@id="QA0Szd"]/div/div/div[1]/div[2]/div/div[1]/div/div/div[7]/div[5]/div[2]/div/table/tbody')
+        hours_table = driver.find_element(By.CLASS_NAME, value='t39EBf GUrTXd')
         day_names = hours_table.find_elements(By.CLASS_NAME, value='ylH6lf ')
         day_hours = hours_table.find_elements(By.CLASS_NAME, value='G8aQO')
         day_name_ls = []
@@ -43,15 +43,15 @@ def scrape(driver, url, business_information):
             return hours
     except:
         hours = 'There are no hours listed.'
-    #print website href
+    #print website hrefs
     try:
-        website_element = driver.find_element(By.XPATH, '//*[@id="QA0Szd"]/div/div/div[1]/div[2]/div/div[1]/div/div/div[7]/div[6]/a')
+        website_element = driver.find_element(By.CLASS_NAME, value='RcCsl fVHpi w4vB1d NOE9ve M0S7ae AG25L ')
         website = website_element.get_attribute('href')
     except:
         website = 'There is no website.'
     #print phone
     try:
-        phone_element = driver.find_element(By.XPATH, '//*[@id="QA0Szd"]/div/div/div[1]/div[2]/div/div[1]/div/div/div[7]/div[7]/button/div/div[2]/div[1]')
+        phone_element = driver.find_element(By.CLASS_NAME, value='RcCsl fVHpi w4vB1d NOE9ve M0S7ae AG25L ')
         phone = phone_element.get_attribute('textContent')
     except:
         phone = 'There is no phone.'
