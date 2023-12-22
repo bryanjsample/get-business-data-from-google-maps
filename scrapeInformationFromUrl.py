@@ -10,14 +10,12 @@ def scrape(driver, url, business_information, lengths_of_lists):
         driver.refresh()
         time.sleep(2)
 
-    time.sleep(1)
+    time.sleep(2)
     print('\n')
 
     #find name
     name_element = driver.find_element(By.XPATH, "//h1[contains(@class, 'DUwDvf lfPIob')]")
     name = name_element.get_attribute('textContent')
-    # if "'" in name:
-    #     name = name.replace("'", '')
 
     #find rating
     rating_element = driver.find_element(By.XPATH, "//div[@class = 'F7nice ']")
@@ -48,6 +46,9 @@ def scrape(driver, url, business_information, lengths_of_lists):
 
 def parse_information(information_elements, info_elem):
     info_ls = []
+    extra_info = []
+    extra_info_strings =['Identifies as', 'LGBT']
+    website_tags = ['.com', '.site', '.org', '.io', '.net', '.tv']
     for i in info_elem:
         info = i.get_attribute('textContent')
         #exclude google play address
@@ -71,51 +72,52 @@ def parse_information(information_elements, info_elem):
                 if ' Closes ' in info:
                     continue
                 #find actual reference for website
-                if '.com' in info:
-                    try:
-                        href = information_elements.find_element(By.XPATH, "//a[contains(@aria-label, 'Website: ')]")
-                        website = href.get_attribute('href')
-                        if website not in info_ls:
-                            info_ls.append(website)
-                            continue
-                        else:
-                            raise Exception('already exists in list')
-                    #if website is already in list, look for business website
-                    except:
-                        href2 = information_elements.find_element(By.XPATH, "//a[@data-item-id = 'action:3']")
-                        website2 = href2.get_attribute('href')
-                        info_ls.append(website2)
-                        continue
-                #find actual reference for website
-                if '.site' in info:
-                    try:
-                        href = information_elements.find_element(By.XPATH, "//a[contains(@aria-label, 'Website: ')]")
-                        website = href.get_attribute('href')
-                        if website not in info_ls:
-                            info_ls.append(website)
-                            continue
-                        else:
-                            raise Exception('already exists in list')
-                    except:
-                        href2 = information_elements.find_element(By.XPATH, "//a[@data-item-id = 'action:3']")
-                        website2 = href2.get_attribute('href')
-                        info_ls.append(website2)
-                        continue
+                tag_exists = False
+                for tag in website_tags:
+                    if tag in info:
+                        tag_exists = True
+                        try:
+                            href = information_elements.find_element(By.XPATH, "//a[contains(@aria-label, 'Website: ')]")
+                            website = href.get_attribute('href')
+                            if website not in info_ls:
+                                business_website = website
+                            else:
+                                raise Exception('already exists in list')
+                        #if website is already in list, look for business website
+                        except:
+                            href2 = information_elements.find_element(By.XPATH, "//a[@data-item-id = 'action:3']")
+                            website2 = href2.get_attribute('href')
+                            if website2 not in info_ls:
+                                booking_website = website2
+                if tag_exists == True:
+                    continue
                 #find actual reference for website
                 if 'Search ' in info:
                     href3 = information_elements.find_element(By.XPATH, "//a[@data-item-id = 'action:5']")
                     website3 = href3.get_attribute('href')
-                    info_ls.append(website3)
+                    search_website = website3
+                    continue
+                extra_info_exists = False
+                for s in extra_info_strings:
+                    if s in info:
+                        extra_info_exists = True
+                        extra_info.append(info)
+                if extra_info_exists == True:
                     continue
                 
                 info_ls.append(info)
+
     for i in info_ls:
         if 'Located in:' in i:
             address_location = info_ls[0] + ' | ' + info_ls[1]
             info_ls.pop(0)
             info_ls.pop(0)
             info_ls.insert(0, address_location)
-
+        if ',' in i:
+            address = i
+            print(address)
+    print(extra_info)
+        
     return info_ls
         
 

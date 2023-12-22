@@ -22,9 +22,9 @@ for url in href_list:
 
 driver.quit()
 
-for info in business_information:
-    print(info)
-    print('\n')
+# for info in business_information:
+#     print(info)
+#     print('\n')
 
 
 print(lengths_of_lists)
