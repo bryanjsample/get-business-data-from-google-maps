@@ -2,7 +2,7 @@
 
 # <div align="center">get-business-data-from-google-maps :mount_fuji:</div>
 
->**<div align="center">Python Command Line Program to scrape information from Google Maps and write into a CSV file.</div>**
+**<div align="center">Python Command Line Program to scrape information from Google Maps and write into a CSV file.</div>**
 
 ---
 
