@@ -50,6 +50,7 @@
      - `xl` = 15 scrolls
      - `xxl` = 20 scrolls
      - `ul` = 5000 scrolls (practically unlimited)
+     - **Will continue to scroll until the bottom of page is reached.**
 5. [`scrapeUrlFromSearch.scrape_urls(href_list)`](https://github.com/bryanjsample/get-business-data-from-google-maps/blob/68d8a0237978bdf3cf5f5f195cb430300435fd68/scrapeUrlFromSearch.py) will open ChromeDriver.
    - Extracts and stores URL for each search result inside of `href_list`
 6. After initial search, [`searchParameters.search_again(answers)`](https://github.com/bryanjsample/get-business-data-from-google-maps/blob/68d8a0237978bdf3cf5f5f195cb430300435fd68/searchParameters.py) will prompt user with `Would you like to add an additional search to this CSV? (yes or no): `
