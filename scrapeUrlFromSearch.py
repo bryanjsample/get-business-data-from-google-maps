@@ -55,7 +55,7 @@ def list_urls(href_list):
                 #key down x times to move page
                 for key_input in range(50):
                     div_to_scroll.send_keys(Keys.PAGE_DOWN)
-                time.sleep(5)
+                time.sleep(2)
                 #find all elements containing a result
                 results =  driver.find_elements(By.CLASS_NAME, value='hfpxzc')
                 #iterate through results
