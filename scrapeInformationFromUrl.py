@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
 import time
 
-def scrape(driver, url, business_information):
+def scrape(driver, url, business_information, lengths_of_lists):
 
     try:
         driver.get(url)
@@ -38,10 +38,13 @@ def scrape(driver, url, business_information):
 
     print(name)
     info_ls = parse_information(information_elements, info_elem)
-    print(info_ls)
     info_ls.insert(0, rating)
-    info_ls.insert(0, num_ratings)
+    info_ls.insert(1, num_ratings)
+    print(info_ls)
     business_information.update({name : info_ls})
+
+    length_of_list = len(info_elem)
+    lengths_of_lists.append(length_of_list)
 
 def parse_information(information_elements, info_elem):
     info_ls = []
@@ -100,12 +103,18 @@ def parse_information(information_elements, info_elem):
                         continue
                 #find actual reference for website
                 if 'Search ' in info:
-                        href3 = information_elements.find_element(By.XPATH, "//a[@data-item-id = 'action:5']")
-                        website3 = href3.get_attribute('href')
-                        info_ls.append(website3)
-                        continue
+                    href3 = information_elements.find_element(By.XPATH, "//a[@data-item-id = 'action:5']")
+                    website3 = href3.get_attribute('href')
+                    info_ls.append(website3)
+                    continue
                 
                 info_ls.append(info)
+    for i in info_ls:
+        if 'Located in:' in i:
+            address_location = info_ls[0] + ' | ' + info_ls[1]
+            info_ls.pop(0)
+            info_ls.pop(0)
+            info_ls.insert(0, address_location)
 
     return info_ls
         
