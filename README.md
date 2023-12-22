@@ -85,8 +85,6 @@
 
 ---
 
-### Conclusion
-
 ##### Application
 
 >This program functions well to quickly scrape information about a specific Google Maps search. This information can then be utilized for many different applications. For example, the information can be used to map locations of specific industries using a GIS software. 
