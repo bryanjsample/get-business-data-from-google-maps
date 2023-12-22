@@ -1,21 +1,28 @@
 from selenium.webdriver.common.by import By
 import time
 
-def scrape(driver, url, business_information):
+def scrape(driver, load_num, url, business_information):
 
     #ensure that there are no browser failures
     loaded = False
+    compare = 0
+    restart_num = 0
     while loaded == False:
         try:
             driver.get(url)
+            if compare != restart_num or load_num == 0:
+                time.sleep(2)
+                compare = restart_num
             loaded = True
         except:
-            loaded = False
+            print('\n' + 'FAILURE' + '\n')
             driver.quit()
+            loaded = False
+            restart_num = compare + 1
             time.sleep(5)
             
     #time for browser to load
-    time.sleep(2)
+    time.sleep(1)
     print('\n')
 
     #find name

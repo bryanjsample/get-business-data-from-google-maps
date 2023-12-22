@@ -40,7 +40,7 @@ def list_urls(href_list):
         except:
             #for the first iteration
             if movement == 0:
-                time.sleep(3)
+                time.sleep(0)
                 #find all elements containing a result
                 results =  driver.find_elements(By.CLASS_NAME, value='hfpxzc')
                 #iterate through results
