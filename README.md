@@ -50,7 +50,7 @@
      - `xl` = 15 scrolls
      - `xxl` = 20 scrolls
      - `ul` = 5000 scrolls (practically unlimited)
-     - **Will continue to scroll until the bottom of page is reached.**
+     - ***Will continue to scroll until the bottom of page is reached.***
 5. [`scrapeUrlFromSearch.scrape_urls(href_list)`](https://github.com/bryanjsample/get-business-data-from-google-maps/blob/68d8a0237978bdf3cf5f5f195cb430300435fd68/scrapeUrlFromSearch.py) will open ChromeDriver.
    - Extracts and stores URL for each search result inside of `href_list`
 6. After initial search, [`searchParameters.search_again(answers)`](https://github.com/bryanjsample/get-business-data-from-google-maps/blob/68d8a0237978bdf3cf5f5f195cb430300435fd68/searchParameters.py) will prompt user with `Would you like to add an additional search to this CSV? (yes or no): `
@@ -69,7 +69,7 @@
       - Website to Book
       - Website to Search
       - Extra Information
-     - **If any information does not exist, field will be filled with `N/A` .**
+     - ***If any information does not exist, field will be filled with `N/A` .***
    - Information is added into `business_information` dictionary
 8. [`formCsvFromInformation.formCsv(csv_write, business_information, dir_name, csv_name)`](https://github.com/bryanjsample/get-business-data-from-google-maps/blob/68d8a0237978bdf3cf5f5f195cb430300435fd68/formCsvFromInformation.py) will write contents of `business_information` into a CSV file named `data_X` where `X` is the number of CSV files created inside of `search_X` directory.
     - This file is contained in `searches/search_X` directory inside of CWD.
