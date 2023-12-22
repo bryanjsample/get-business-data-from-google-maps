@@ -37,8 +37,8 @@ def scrape(driver, load_num, url, business_information):
         rating = rating_ls[0]
         num_ratings = rating_ls[1].rstrip((rating_ls[1])[-1])
     else:
-        rating = ''
-        num_ratings = ''
+        rating = 'N/A'
+        num_ratings = 'N/A'
     
 
     #find information
