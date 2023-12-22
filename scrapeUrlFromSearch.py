@@ -1,10 +1,10 @@
+import searchParameters
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import time
-import searchParameters
 
-def list_urls(href_list):
+def scrape_urls(href_list):
     search = searchParameters.define_search()
     num_iterations = searchParameters.search_paramters()
 

@@ -1,3 +1,4 @@
+import searchParameters
 import scrapeUrlFromSearch
 import scrapeInformationFromUrl
 import formCsvFromInformation
@@ -7,27 +8,31 @@ href_list = []
 business_information = {}
 answers = ['yes', 'no', 'y', 'n']
 
+csv_write = 'write'
 count = 0
 test_new_file = 'yes'
 
+#create new directory to hold csv files
+dir_name = searchParameters.create_dir()
+
+#while loop for the entire program (after asking about a new file)
 test_do = 'yes'
 while test_do == 'yes' or test_do == 'y':
-
+        
+    #while loop for intial search input
     test_keep = 'yes'
     while test_keep == 'yes' or test_keep == 'y':
+        #scrape urls
+        scrapeUrlFromSearch.scrape_urls(href_list)
+        #do you want to search again?
+        test_keep = searchParameters.search_again(answers)
 
-        scrapeUrlFromSearch.list_urls(href_list)
-
-        keep_searching = input('Would you like to add another search to this file? (yes or no): ' )
-        test_keep = keep_searching.lower()
-        while test_keep not in answers:
-            keep_searching = input('Would you like to add another search to this file? (yes or no): ' )
-            test_keep = keep_searching.lower()
-
+    #initiate detached driver to find information
     options = webdriver.ChromeOptions()
     options.add_experimental_option('detach', True)
     driver = webdriver.Chrome(options = options)
-
+    
+    #scrape information, load_num will determine wait time for window
     load_num = 0
     for url in href_list:
         scrapeInformationFromUrl.scrape(driver, load_num, url, business_information)
@@ -35,29 +40,24 @@ while test_do == 'yes' or test_do == 'y':
 
     driver.quit()
 
-    #write a new file
-    if test_new_file == 'yes' or new_file == 'y':
+    if test_new_file == 'yes' or test_new_file == 'y':
+        #write a new file
         count += 1
         csv_name = f'data_{count}'
-        formCsvFromInformation.formCsv(business_information, csv_name)
-    #write into an existing file
-    elif test_new_file == 'no' or new_file == 'n':
+        formCsvFromInformation.formCsv(csv_write, business_information, dir_name, csv_name)
+    elif test_new_file == 'no' or test_new_file == 'n':
+        #write into an existing file
         csv_name = f'data_{count}'
-        formCsvFromInformation.formCsv(business_information, csv_name)
+        formCsvFromInformation.formCsv(csv_write, business_information, dir_name, csv_name)
 
-    do = input('Do you want to search for more? (yes or no): ')
-    test_do = do.lower()
-    while test_do not in answers:
-        do = input('Do you want to search for more? (yes or no): ')
-        test_do = do.lower()
-    if test_do == 'yes' or test_do == 'y':
-        new_file = input('Do you want to write the search in a new CSV file? (yes or no): ')
-        test_new_file = new_file.lower()
-        while test_new_file not in answers:
-            new_file = input('Do you want to write the search in a new CSV file? (yes or no): ')
-            test_new_file = new_file.lower()
-        if test_new_file == 'yes' or 'y':
-            business_information.clear()
+    #keep searching? if no, end program 
+    #new file? if yes, clear business information
+    tests = searchParameters.end_or_new(answers, csv_write, test_do, test_new_file)
+    test_do = tests[0]
+    test_new_file = tests[1]
+    csv_write = tests[2]
+    href_list.clear()
+    business_information.clear()
         
 
 
