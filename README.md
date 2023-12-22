@@ -42,7 +42,7 @@
 3. User will be prompted with `Search Google Maps For Information About: `
    - The default search location is not set. When prompted for search, it is best to include a location to search.
    - Example: `Businesses in Minneapolis`
-4. [`searchParameters.search_parameters`](https://github.com/bryanjsample/get-business-data-from-google-maps/blob/68d8a0237978bdf3cf5f5f195cb430300435fd68/searchParameters.py) will prompt user with `Define search size (s, m, l, xl, xxl, unlimited (ul)): `
+4. [`searchParameters.search_parameters()`](https://github.com/bryanjsample/get-business-data-from-google-maps/blob/68d8a0237978bdf3cf5f5f195cb430300435fd68/searchParameters.py) will prompt user with `Define search size (s, m, l, xl, xxl, unlimited (ul)): `
    - User input will determine the number of scrolls that ChromeDriver will perform on the search results.
      - `s` = 3 scrolls
      - `m` = 6 scrolls
