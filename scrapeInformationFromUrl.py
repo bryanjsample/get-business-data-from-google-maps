@@ -1,15 +1,20 @@
 from selenium.webdriver.common.by import By
 import time
 
-def scrape(driver, url, business_information, lengths_of_lists):
+def scrape(driver, url, business_information):
 
-    try:
-        driver.get(url)
-    except:
-        time.sleep(3)
-        driver.refresh()
-        time.sleep(2)
-
+    #ensure that there are no browser failures
+    loaded = False
+    while loaded == False:
+        try:
+            driver.get(url)
+            loaded = True
+        except:
+            loaded = False
+            driver.quit()
+            time.sleep(5)
+            
+    #time for browser to load
     time.sleep(2)
     print('\n')
 
@@ -32,23 +37,26 @@ def scrape(driver, url, business_information, lengths_of_lists):
     #find information
     information_elements = driver.find_element(By.XPATH, f"//div[contains(@aria-label, 'Information for ')]")
     info_elem = information_elements.find_elements(By.XPATH, "//div[contains(@class, 'Io6YTe fontBodyMedium kR99db ')]")
-
-
+    #confirmation print
     print(name)
+
+    #form info list to add to dictionary
     info_ls = parse_information(information_elements, info_elem)
     info_ls.insert(0, rating)
     info_ls.insert(1, num_ratings)
+    #confirmation print
     print(info_ls)
+
+    #update dictionary for location
     business_information.update({name : info_ls})
 
-    length_of_list = len(info_elem)
-    lengths_of_lists.append(length_of_list)
+    #end scrape()
 
 def parse_information(information_elements, info_elem):
     info_ls = []
     extra_info = []
     extra_info_strings =['Identifies as', 'LGBT']
-    website_tags = ['.com', '.site', '.org', '.io', '.net', '.tv']
+    website_tags = ['.com', '.site', '.org', '.io', '.net', '.tv', '.us']
     for i in info_elem:
         info = i.get_attribute('textContent')
         #exclude google play address
@@ -67,10 +75,12 @@ def parse_information(information_elements, info_elem):
                 if 'Claim this business' in info:
                     continue
                 #exclude hours
-                if ' Opens ' in info:
+                if ' Opens ' in info or ' Closes ' in info:
                     continue
-                if ' Closes ' in info:
+                #exclude find a table button
+                if 'Find ' in info:
                     continue
+
                 #find actual reference for website
                 tag_exists = False
                 for tag in website_tags:
@@ -83,7 +93,7 @@ def parse_information(information_elements, info_elem):
                                 business_website = website
                             else:
                                 raise Exception('already exists in list')
-                        #if website is already in list, look for business website
+                        #if website is already in list, look for booking website
                         except:
                             href2 = information_elements.find_element(By.XPATH, "//a[@data-item-id = 'action:3']")
                             website2 = href2.get_attribute('href')
@@ -91,12 +101,15 @@ def parse_information(information_elements, info_elem):
                                 booking_website = website2
                 if tag_exists == True:
                     continue
+
                 #find actual reference for website
                 if 'Search ' in info:
                     href3 = information_elements.find_element(By.XPATH, "//a[@data-item-id = 'action:5']")
                     website3 = href3.get_attribute('href')
                     search_website = website3
                     continue
+
+                #isolate any extra detals
                 extra_info_exists = False
                 for s in extra_info_strings:
                     if s in info:
@@ -107,20 +120,60 @@ def parse_information(information_elements, info_elem):
                 
                 info_ls.append(info)
 
+    #format address and location
     for i in info_ls:
-        if 'Located in:' in i:
+        if 'Located in:' in i or 'Floor ' in i:
             address_location = info_ls[0] + ' | ' + info_ls[1]
             info_ls.pop(0)
             info_ls.pop(0)
             info_ls.insert(0, address_location)
+
+    for i in info_ls:
+        #define address
         if ',' in i:
             address = i
-            print(address)
-    print(extra_info)
-        
+        #define phone
+        test_phone = format_for_test(i)
+        test = False
+        test = test_phone.isnumeric()
+        if test == True:
+            phone = i
+    #clear list to format correctly
+    info_ls.clear()
+    #append to list in correct order (N/A) if not present
+    try:
+        info_ls.append(address)
+    except:
+        info_ls.append('N/A')
+    try:
+        info_ls.append(phone)
+    except:
+        info_ls.append('N/A')
+    try:
+        info_ls.append(business_website)
+    except:
+        info_ls.append('N/A')
+    try:
+        info_ls.append(booking_website)
+    except:
+        info_ls.append('N/A')
+    try:
+        info_ls.append(search_website)
+    except:
+        info_ls.append('N/A')
+    if len(extra_info) != 0:
+        info_ls.append(extra_info)
+    else:
+        info_ls.append('N/A')
+
+    
     return info_ls
         
 
-
-
+def format_for_test(i):
+    removal_items = ['(', ')', '+', '-', ' ']
+    for item in removal_items:
+        if item in i:
+            i = i.replace(item, '')
+    return i
         
