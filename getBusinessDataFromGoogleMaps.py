@@ -12,9 +12,6 @@ csv_write = 'write'
 count = 0
 test_new_file = 'yes'
 
-#create new directory to hold csv files
-dir_name = searchParameters.create_dir()
-
 #while loop for the entire program (after asking about a new file)
 test_do = 'yes'
 while test_do == 'yes' or test_do == 'y':
@@ -40,15 +37,20 @@ while test_do == 'yes' or test_do == 'y':
 
     driver.quit()
 
+    #create new directory to hold csv files
+    dirs = searchParameters.create_dir()
+    parent_dir = dirs[0]
+    dir_name = dirs[1]
+
     if test_new_file == 'yes' or test_new_file == 'y':
         #write a new file
         count += 1
         csv_name = f'data_{count}'
-        formCsvFromInformation.formCsv(csv_write, business_information, dir_name, csv_name)
+        formCsvFromInformation.formCsv(csv_write, business_information, parent_dir, dir_name, csv_name)
     elif test_new_file == 'no' or test_new_file == 'n':
         #write into an existing file
         csv_name = f'data_{count}'
-        formCsvFromInformation.formCsv(csv_write, business_information, dir_name, csv_name)
+        formCsvFromInformation.formCsv(csv_write, business_information, parent_dir, dir_name, csv_name)
 
     #keep searching? if no, end program 
     #new file? if yes, clear business information

@@ -4,17 +4,17 @@ def create_dir():
     #make a directory for this search
     num_dir = 0
     dir_name = f'search_{num_dir}'
-    cwd =  os.getcwd()
-    cwd_ls = os.listdir(cwd)
-    if 'searches' not in cwd_ls:
-        os.mkdir(f'{cwd}/searches')
-    test_dir = f'{cwd}/searches'
+    parent_dir = os.path.dirname(__file__)
+    parent_dir_ls = os.listdir(parent_dir)
+    if 'searches' not in parent_dir_ls:
+        os.mkdir(f'{parent_dir}/searches')
+    test_dir = f'{parent_dir}/searches'
     test_dir_ls = os.listdir(test_dir)
     while dir_name in test_dir_ls:
         num_dir += 1
         dir_name = f'search_{num_dir}'
     os.mkdir(f'{test_dir}/{dir_name}')
-    return dir_name
+    return (parent_dir, dir_name)
 
 def define_search():
     search = input('Search Google Maps For Information About: ')
