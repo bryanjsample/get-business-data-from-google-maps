@@ -43,6 +43,16 @@ def search_paramters():
         num_iterations = 5000
     return num_iterations
 
+
+
+
+### ADD IN FUNCTION TO CHOOSE BETWEEN SINGLE SEARCH OR MULTI SEARCH
+
+### MAKE MULTI SEARCH LIST TO PARSE THROUGH TO MAKE IT EASIER ON USER
+
+
+
+
 def search_again(answers):
     keep_searching = input('Would you like to add an additional search to this CSV? (yes or no): ' )
     test_keep = keep_searching.lower()
