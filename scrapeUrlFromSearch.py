@@ -39,39 +39,41 @@ def scrape_urls(driver, load_num, href_list, search):
     #establish div to receive key down
     div_to_scroll = driver.find_element(By.XPATH, '/html/body/div[2]/div[3]/div[8]/div[9]/div/div/div[1]/div[2]/div/div[1]/div/div/div[1]/div[1]')
     
-
+    bottom = ''
     #this will raise an exception until end of list is reached
-    try:
-        driver.find_element(By.CLASS_NAME, value='HlvSq')
-        print("All results acquired")
-        #find all elements containing a result
-        results =  driver.find_elements(By.CLASS_NAME, value='hfpxzc')
-        #iterate through results
-        for i in results:
-            #get the url for each result
-            href = i.get_attribute('href')
-            #if there is a url
-            if i:
-                if href not in href_list:
-                    #add it to the list
-                    href_list.append(href)
+    while bottom != 'found':
+        try:
+            driver.find_element(By.CLASS_NAME, value='HlvSq')
+            print("All results acquired")
+            #find all elements containing a result
+            results =  driver.find_elements(By.CLASS_NAME, value='hfpxzc')
+            #iterate through results
+            for i in results:
+                #get the url for each result
+                href = i.get_attribute('href')
+                #if there is a url
+                if i:
+                    if href not in href_list:
+                        #add it to the list
+                        href_list.append(href)
+            bottom = 'found'
 
-    #until the end is reached do this
-    except:
-        #key down x times to move page
-        for key_input in range(50):
-            div_to_scroll.send_keys(Keys.PAGE_DOWN)
-        time.sleep(2)
-        #find all elements containing a result
-        results =  driver.find_elements(By.CLASS_NAME, value='hfpxzc')
-        #iterate through results
-        for i in results:
-            #get the url for each result
-            href = i.get_attribute('href')
-            #if there is a url
-            if i:
-                if href not in href_list:
-                    #add it to the list
-                    href_list.append(href)
+        #until the end is reached do this
+        except:
+            #key down x times to move page
+            for key_input in range(50):
+                div_to_scroll.send_keys(Keys.PAGE_DOWN)
+            time.sleep(2)
+            #find all elements containing a result
+            results =  driver.find_elements(By.CLASS_NAME, value='hfpxzc')
+            #iterate through results
+            for i in results:
+                #get the url for each result
+                href = i.get_attribute('href')
+                #if there is a url
+                if i:
+                    if href not in href_list:
+                        #add it to the list
+                        href_list.append(href)
     # driver.quit()
     

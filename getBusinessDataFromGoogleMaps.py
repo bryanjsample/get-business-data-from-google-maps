@@ -37,7 +37,6 @@ while do_test == 'yes' or do_test == 'y':
         load_num += 1
 
     print(href_list)
-    quit()
         # #do you want to search again?
         # test_keep = searchParameters.search_again(answers)
 
