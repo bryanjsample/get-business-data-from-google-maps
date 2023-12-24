@@ -15,7 +15,7 @@ test_new_file = 'yes'
 #while loop for the entire program (after asking about a new file)
 test_do = 'yes'
 while test_do == 'yes' or test_do == 'y':
-        
+    
     #while loop for intial search input
     test_keep = 'yes'
     while test_keep == 'yes' or test_keep == 'y':
@@ -60,7 +60,7 @@ while test_do == 'yes' or test_do == 'y':
     csv_write = tests[2]
     href_list.clear()
     business_information.clear()
-        
+
 
 
 
