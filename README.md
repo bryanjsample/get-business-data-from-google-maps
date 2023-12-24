@@ -5,6 +5,12 @@
 **<div align="center">Python Command Line Program to scrape information from Google Maps and write into a CSV file.</div>**
 
 ---
+### <div align="center">TO-DO</div>**
+
+1. Test to make sure that program is running well after adjusting search input
+2. Update README if it works
+   1. Revert if not
+3. Run very large sample size to test driver crash handling
 
 ### General Overview
 - When executed, the program will:

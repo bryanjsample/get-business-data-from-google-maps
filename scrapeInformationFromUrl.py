@@ -1,63 +1,65 @@
 from selenium.webdriver.common.by import By
 import time
 
-def scrape(driver, load_num, url, business_information):
+def scrape(driver, load_num, href_list, business_information):
 
-    #ensure that there are no browser failures
-    loaded = False
-    compare = 0
-    restart_num = 0
-    while loaded == False:
-        try:
-            driver.get(url)
-            if compare != restart_num or load_num == 0:
-                time.sleep(2)
-                compare = restart_num
-            loaded = True
-        except:
-            print('\n' + 'FAILURE' + '\n')
-            driver.quit()
-            loaded = False
-            restart_num = compare + 1
-            time.sleep(5)
-            
-    #time for browser to load
-    time.sleep(1)
-    print('\n')
+    for url in href_list:
 
-    #find name
-    name_element = driver.find_element(By.XPATH, "//h1[contains(@class, 'DUwDvf lfPIob')]")
-    name = name_element.get_attribute('textContent')
+        #ensure that there are no browser failures
+        loaded = False
+        compare = 0
+        restart_num = 0
+        while loaded == False:
+            try:
+                driver.get(url)
+                if compare != restart_num or load_num == 0:
+                    time.sleep(2)
+                    compare = restart_num
+                loaded = True
+            except:
+                print('\n' + 'DRIVER FAILURE : RESTARTING DRIVER' + '\n')
+                driver.quit()
+                loaded = False
+                restart_num = compare + 1
+                time.sleep(5)
+                
+        #time for browser to load
+        time.sleep(1)
+        print('\n')
 
-    #find rating
-    rating_element = driver.find_element(By.XPATH, "//div[@class = 'F7nice ']")
-    rating_and_num = rating_element.get_attribute('textContent')
-    if rating_and_num != '':
-        rating_ls = rating_and_num.split('(')
-        rating = rating_ls[0]
-        num_ratings = rating_ls[1].rstrip((rating_ls[1])[-1])
-    else:
-        rating = 'N/A'
-        num_ratings = 'N/A'
-    
+        #find name
+        name_element = driver.find_element(By.XPATH, "//h1[contains(@class, 'DUwDvf lfPIob')]")
+        name = name_element.get_attribute('textContent')
 
-    #find information
-    information_elements = driver.find_element(By.XPATH, f"//div[contains(@aria-label, 'Information for ')]")
-    info_elem = information_elements.find_elements(By.XPATH, "//div[contains(@class, 'Io6YTe fontBodyMedium kR99db ')]")
-    #confirmation print
-    print(name)
+        #find rating
+        rating_element = driver.find_element(By.XPATH, "//div[@class = 'F7nice ']")
+        rating_and_num = rating_element.get_attribute('textContent')
+        if rating_and_num != '':
+            rating_ls = rating_and_num.split('(')
+            rating = rating_ls[0]
+            num_ratings = rating_ls[1].rstrip((rating_ls[1])[-1])
+        else:
+            rating = 'N/A'
+            num_ratings = 'N/A'
+        
 
-    #form info list to add to dictionary
-    info_ls = parse_information(information_elements, info_elem)
-    info_ls.insert(0, rating)
-    info_ls.insert(1, num_ratings)
-    #confirmation print
-    print(info_ls)
+        #find information
+        information_elements = driver.find_element(By.XPATH, f"//div[contains(@aria-label, 'Information for ')]")
+        info_elem = information_elements.find_elements(By.XPATH, "//div[contains(@class, 'Io6YTe fontBodyMedium kR99db ')]")
+        #confirmation print
+        print(name)
 
-    #update dictionary for location
-    business_information.update({name : info_ls})
+        #form info list to add to dictionary
+        info_ls = parse_information(information_elements, info_elem)
+        info_ls.insert(0, rating)
+        info_ls.insert(1, num_ratings)
+        #confirmation print
+        print(info_ls)
 
-    #end scrape()
+        #update dictionary for location
+        business_information.update({name : info_ls})
+
+        #end scrape()
 
 def parse_information(information_elements, info_elem):
     info_ls = []

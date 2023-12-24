@@ -39,3 +39,19 @@ def formCsv(csv_write, business_information, parent_dir, dir_name, csv_name):
                 CsvRowValues.clear()
             csvfile.close()
         print(f'{csv_name} written inside of {parent_dir}/searches/{dir_name}')
+
+def create_dir():
+    #make a directory for this search
+    num_dir = 0
+    dir_name = f'search_{num_dir}'
+    parent_dir = os.path.dirname(__file__)
+    parent_dir_ls = os.listdir(parent_dir)
+    if 'searches' not in parent_dir_ls:
+        os.mkdir(f'{parent_dir}/searches')
+    test_dir = f'{parent_dir}/searches'
+    test_dir_ls = os.listdir(test_dir)
+    while dir_name in test_dir_ls:
+        num_dir += 1
+        dir_name = f'search_{num_dir}'
+    os.mkdir(f'{test_dir}/{dir_name}')
+    return (parent_dir, dir_name)
