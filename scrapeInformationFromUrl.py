@@ -28,6 +28,8 @@ def scrape(driver, load_num, url, business_information):
     #find name
     name_element = driver.find_element(By.XPATH, "//h1[contains(@class, 'DUwDvf lfPIob')]")
     name = name_element.get_attribute('textContent')
+    #confirmation print
+    print(name)
 
     #find rating
     try:
@@ -44,11 +46,13 @@ def scrape(driver, load_num, url, business_information):
         rating = 'N/A'
         num_ratings = 'N/A'
 
-    #find information
-    information_elements = driver.find_element(By.XPATH, "//div[contains(@aria-label, 'Information for ')]")
-    info_elem = information_elements.find_elements(By.XPATH, "//div[contains(@class, 'Io6YTe fontBodyMedium kR99db ')]")
-    #confirmation print
-    print(name)
+    try:
+        #find information
+        information_elements = driver.find_element(By.XPATH, "//div[contains(@aria-label, 'Information for ')]")
+        info_elem = information_elements.find_elements(By.XPATH, "//div[contains(@class, 'Io6YTe fontBodyMedium kR99db ')]")
+    except:
+        return
+
 
     #form info list to add to dictionary
     info_ls = parse_information(information_elements, info_elem)
