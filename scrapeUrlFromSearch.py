@@ -3,15 +3,6 @@ from selenium.webdriver.common.keys import Keys
 import time
 
 def scrape_urls(driver, load_num, href_list, search):
-    # search = searchParameters.define_search()
-    # num_iterations = searchParameters.search_paramters()
-
-
-    # driver = webdriver.Chrome()
-
-
-    
-
     #ensure that there are no browser failures
     loaded = False
     compare = 0
@@ -31,9 +22,6 @@ def scrape_urls(driver, load_num, href_list, search):
             restart_num = compare + 1
             time.sleep(5)
 
-    # #format input for url
-    # search_url = search.replace(' ', '+')
-    # driver.get(f'https://www.google.com/maps/search/{search_url}')
     #wait 3 seconds for all contents to load
     time.sleep(3)
     #establish div to receive key down
@@ -75,5 +63,3 @@ def scrape_urls(driver, load_num, href_list, search):
                     if href not in href_list:
                         #add it to the list
                         href_list.append(href)
-    # driver.quit()
-    

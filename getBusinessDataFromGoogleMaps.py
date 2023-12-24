@@ -18,12 +18,7 @@ do_test = 'yes'
 while do_test == 'yes' or do_test == 'y':
     #define search contents    
     searches = searchParameters.define_search()
-        
-    # #while loop for intial search input
-    # keep_test = 'yes'
-    # while keep_test == 'yes' or test_keep == 'y':
-    #     #scrape urls
-
+    
     #establish chromedriver to stay open with each driver.get()
     options = webdriver.ChromeOptions()
     options.add_experimental_option('detach', True)
@@ -37,13 +32,6 @@ while do_test == 'yes' or do_test == 'y':
         load_num += 1
 
     print(href_list)
-        # #do you want to search again?
-        # test_keep = searchParameters.search_again(answers)
-
-    #initiate detached driver to find information
-    # options = webdriver.ChromeOptions()
-    # options.add_experimental_option('detach', True)
-    # driver = webdriver.Chrome(options = options)
     
     #scrape informatiom
     for url in href_list:

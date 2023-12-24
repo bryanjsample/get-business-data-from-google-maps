@@ -177,7 +177,7 @@ def parse_information(information_elements, info_elem):
 
     
     return info_ls
-        
+
 
 def format_for_test(i):
     removal_items = ['(', ')', '+', '-', ' ']
@@ -185,4 +185,3 @@ def format_for_test(i):
         if item in i:
             i = i.replace(item, '')
     return i
-        
