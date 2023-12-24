@@ -12,23 +12,32 @@ def scrape_urls(driver, load_num, href_list, search):
         try:
             driver.get(f'https://www.google.com/maps/search/{search_url}')
             if compare != restart_num or load_num == 0:
-                time.sleep(2)
+                time.sleep(3)
                 compare = restart_num
             loaded = True
         except:
             print('\n' + 'FAILURE' + '\n')
-            driver.quit()
+            driver.get('https://www.bemidjistate.edu/services/health-counseling/')
             loaded = False
             restart_num = compare + 1
             time.sleep(5)
 
-    #wait 3 seconds for all contents to load
-    time.sleep(3)
-    #establish div to receive key down
-    div_to_scroll = driver.find_element(By.XPATH, '/html/body/div[2]/div[3]/div[8]/div[9]/div/div/div[1]/div[2]/div/div[1]/div/div/div[1]/div[1]')
-    
-    bottom = ''
+    #wait 3 seconds for all contents to load        
+    time.sleep(2)
+    #if there is only one search result, obtain the url and skip the rest
+    try:
+        div_to_scroll = driver.find_element(By.XPATH, "//div[contains(@aria-label, 'Results for')]")
+        div_to_scroll.send_keys(Keys.ARROW_DOWN)
+    except:
+        single_result = driver.current_url
+        if single_result not in href_list:
+            #add it to the list
+            href_list.append(single_result)
+            print(href_list)
+            return
+
     #this will raise an exception until end of list is reached
+    bottom = ''
     while bottom != 'found':
         try:
             driver.find_element(By.CLASS_NAME, value='HlvSq')

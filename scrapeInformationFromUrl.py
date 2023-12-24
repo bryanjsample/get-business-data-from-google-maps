@@ -1,37 +1,36 @@
 from selenium.webdriver.common.by import By
 import time
 
-def scrape(driver, load_num, href_list, business_information):
+def scrape(driver, load_num, url, business_information):
 
-    for url in href_list:
+    #ensure that there are no browser failures
+    loaded = False
+    compare = 0
+    restart_num = 0
+    while loaded == False:
+        try:
+            driver.get(url)
+            if compare != restart_num or load_num == 0:
+                time.sleep(2)
+                compare = restart_num
+            loaded = True
+        except:
+            print('\n' + 'DRIVER FAILURE : RESTARTING DRIVER' + '\n')
+            driver.quit()
+            loaded = False
+            restart_num = compare + 1
+            time.sleep(5)
+            
+    #time for browser to load
+    time.sleep(1)
+    print('\n')
 
-        #ensure that there are no browser failures
-        loaded = False
-        compare = 0
-        restart_num = 0
-        while loaded == False:
-            try:
-                driver.get(url)
-                if compare != restart_num or load_num == 0:
-                    time.sleep(2)
-                    compare = restart_num
-                loaded = True
-            except:
-                print('\n' + 'DRIVER FAILURE : RESTARTING DRIVER' + '\n')
-                driver.quit()
-                loaded = False
-                restart_num = compare + 1
-                time.sleep(5)
-                
-        #time for browser to load
-        time.sleep(1)
-        print('\n')
+    #find name
+    name_element = driver.find_element(By.XPATH, "//h1[contains(@class, 'DUwDvf lfPIob')]")
+    name = name_element.get_attribute('textContent')
 
-        #find name
-        name_element = driver.find_element(By.XPATH, "//h1[contains(@class, 'DUwDvf lfPIob')]")
-        name = name_element.get_attribute('textContent')
-
-        #find rating
+    #find rating
+    try:
         rating_element = driver.find_element(By.XPATH, "//div[@class = 'F7nice ']")
         rating_and_num = rating_element.get_attribute('textContent')
         if rating_and_num != '':
@@ -41,25 +40,27 @@ def scrape(driver, load_num, href_list, business_information):
         else:
             rating = 'N/A'
             num_ratings = 'N/A'
-        
+    except:
+        rating = 'N/A'
+        num_ratings = 'N/A'
 
-        #find information
-        information_elements = driver.find_element(By.XPATH, f"//div[contains(@aria-label, 'Information for ')]")
-        info_elem = information_elements.find_elements(By.XPATH, "//div[contains(@class, 'Io6YTe fontBodyMedium kR99db ')]")
-        #confirmation print
-        print(name)
+    #find information
+    information_elements = driver.find_element(By.XPATH, "//div[contains(@aria-label, 'Information for ')]")
+    info_elem = information_elements.find_elements(By.XPATH, "//div[contains(@class, 'Io6YTe fontBodyMedium kR99db ')]")
+    #confirmation print
+    print(name)
 
-        #form info list to add to dictionary
-        info_ls = parse_information(information_elements, info_elem)
-        info_ls.insert(0, rating)
-        info_ls.insert(1, num_ratings)
-        #confirmation print
-        print(info_ls)
+    #form info list to add to dictionary
+    info_ls = parse_information(information_elements, info_elem)
+    info_ls.insert(0, rating)
+    info_ls.insert(1, num_ratings)
+    #confirmation print
+    print(info_ls)
 
-        #update dictionary for location
-        business_information.update({name : info_ls})
+    #update dictionary for location
+    business_information.update({name : info_ls})
 
-        #end scrape()
+    #end scrape()
 
 def parse_information(information_elements, info_elem):
     info_ls = []
@@ -175,7 +176,7 @@ def parse_information(information_elements, info_elem):
     else:
         info_ls.append('N/A')
 
-    
+
     return info_ls
 
 
