@@ -16,7 +16,7 @@ def scrape(driver, load_num, url, business_information):
             loaded = True
         except:
             print('\n' + 'DRIVER FAILURE : RESTARTING DRIVER' + '\n')
-            driver.quit()
+            driver.get('https://www.bemidjistate.edu/services/health-counseling/')
             loaded = False
             restart_num = compare + 1
             time.sleep(5)
