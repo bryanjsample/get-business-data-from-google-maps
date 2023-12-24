@@ -1,66 +1,22 @@
-import os
-
-def create_dir():
-    #make a directory for this search
-    num_dir = 0
-    dir_name = f'search_{num_dir}'
-    parent_dir = os.path.dirname(__file__)
-    parent_dir_ls = os.listdir(parent_dir)
-    if 'searches' not in parent_dir_ls:
-        os.mkdir(f'{parent_dir}/searches')
-    test_dir = f'{parent_dir}/searches'
-    test_dir_ls = os.listdir(test_dir)
-    while dir_name in test_dir_ls:
-        num_dir += 1
-        dir_name = f'search_{num_dir}'
-    os.mkdir(f'{test_dir}/{dir_name}')
-    return (parent_dir, dir_name)
 
 def define_search():
-    search = input('Search Google Maps For Information About: ')
-    return search
+    searches = []
+    answers = ['yes', 'y', 'no', 'n']
 
-def search_paramters():
-    sizes = ['small', 's', 'medium', 'm', 'large', 'l', 'x-large', 'xlarge', 'x large', 'xl', 'xx-large', 'xxlarge', 'xx large', 'x x large', 'xxl', 'unlimited', 'ul']
-    xl = ['x-large', 'xlarge', 'x large', 'xl']
-    xxl = ['xx-large', 'xxlarge', 'xx large', 'x x large', 'xxl']
-    search_size = input("Define search size (s, m, l, xl, xxl, unlimited (ul)): ")
-    search_test = search_size.lower()
-    while search_test not in sizes:
-        search_size = input("Define search size (s, m, l, xl, xxl, unlimited (ul)): ")
-        search_test = search_size.lower()
-    if search_test == 'small' or search_test == 's':
-        num_iterations = 3
-    elif search_test == 'medium' or search_test == 'm':
-        num_iterations = 6
-    elif search_test == 'large' or search_test == 'l':
-        num_iterations = 10
-    elif search_test in xl:
-        num_iterations = 15
-    elif search_test in xxl:
-        num_iterations = 20
-    elif search_test == 'unlimited' or search_test == 'ul':
-        num_iterations = 5000
-    return num_iterations
-
-
-
-
-### ADD IN FUNCTION TO CHOOSE BETWEEN SINGLE SEARCH OR MULTI SEARCH
-
-### MAKE MULTI SEARCH LIST TO PARSE THROUGH TO MAKE IT EASIER ON USER
-
-
-
-
-def search_again(answers):
-    keep_searching = input('Would you like to add an additional search to this CSV? (yes or no): ' )
-    test_keep = keep_searching.lower()
-    while test_keep not in answers:
-        keep_searching = input('Would you like to add an additional search to this CSV? (yes or no): ' )
-        test_keep = keep_searching.lower()
-    return test_keep
-
+    # keep asking for searches until user confirms there are no more
+    done_searching_test = 'no'
+    while done_searching_test == 'no' or done_searching_test == 'n':
+        search = input('Search Google Maps For Information About: ')
+        #append each search into searches list
+        searches.append(search)
+        done_searching = input('Are you finished inputting searches? (yes or no): ')
+        done_searching_test = done_searching.lower()
+        while done_searching_test not in answers:
+            done_searching = input('Are you finished inputting searches? (yes or no): ')
+            done_searching_test = done_searching.lower()
+    return searches
+            
+# AT END OF PROGRAM....do you want to do another?
 def end_or_new(answers, csv_write, test_do, test_new_file):
     #keep going or end program?
     do = input('Do you want to search for more information? (yes or no): ')
