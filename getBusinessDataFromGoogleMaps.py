@@ -19,11 +19,9 @@ while do_test == 'yes' or do_test == 'y':
     #define search contents    
     searches = searchParameters.define_search()
 
-    #establish chromedriver to stay open with each driver.get()
-    options = webdriver.ChromeOptions()
-    options.add_experimental_option('detach', True)
-    driver = webdriver.Chrome(options = options)
-    
+    #establish webdriver
+    driver = webdriver.Chrome()
+
     #load_num will determine wait time for window
     load_num = 0
     #extract search result urls
