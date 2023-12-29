@@ -1,3 +1,9 @@
+import pandas
+
+
+def find_zips()
+pandas.read_csv('')
+
 # user input 
 #   large or small search?
 #   if small, continue with og script
@@ -8,3 +14,4 @@
 #   for row in csv, if city == city, append zip into list
 
 # maps search = industry + in + zip code list
+
