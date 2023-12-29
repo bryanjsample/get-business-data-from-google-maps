@@ -40,5 +40,63 @@ def end_or_new(answers, csv_write, test_do, test_new_file):
     return (test_do, test_new_file, csv_write)
 
 def state_search():
-    state_names = ['']
-    state_full = input('What state would you like to search inside of? ')
+    state_names = {
+        'alabama' : 'AL',
+        'alaska' : 'AK',
+        'arizona' : 'AZ',
+        'arkansas' : 'AR',
+        'california' : 'CA',
+        'colorado' : 'CO',
+        'connecticut' : 'CT',
+        'delaware' : 'DE',
+        'washington dc' : 'DC',
+        'washington d.c.' : 'DC',
+        'dc' : 'DC',
+        'd.c.' : 'DC',
+        'florida' : 'FL',
+        'georgia' : 'GA',
+        'hawaii' : 'HI',
+        'idaho' : 'ID',
+        'illinois' : 'IL',
+        'iowa' : 'IA',
+        'kansas' : 'KS',
+        'kentucky' : 'KY',
+        'louisiana' : 'LA',
+        'maine' : 'ME',
+        'maryland' : 'MD',
+        'massachusetts' : 'MA',
+        'michigan' : 'MI',
+        'minnesota' : 'MN',
+        'mississippi' : 'MS',
+        'missouri' : 'MO',
+        'montana' : 'MT',
+        'nebraska' : 'NE',
+        'nevada' : 'NV',
+        'new hampshire' : 'NH',
+        'new jersey' : 'NJ',
+        'new mexico' : 'NM',
+        'new york' : 'NY',
+        'north carolina' : 'NC',
+        'north dakota' : 'ND',
+        'ohio' : 'OH',
+        'oklahoma' : 'OK',
+        'oregon' : 'OR',
+        'pennsylvania' : 'PA',
+        'rhode island' : 'RI',
+        'south carolina' : 'SC',
+        'south dakota' : 'SD',
+        'tennessee' : 'TN',
+        'texas' : 'TX',
+        'utah' : 'UT',
+        'vermont' : 'VT',
+        'virginia' : 'VA',
+        'washington' : 'WA',
+        'west virginia' : 'WV',
+        'wisconsin' : 'WI',
+        'wyoming' : 'WY',
+    }
+    state = input('What state would you like to search inside of? ').lower()
+    while state not in state_names:
+        state = input('State name not found, please enter a valid US state: ').lower()
+
+state_search()

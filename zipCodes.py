@@ -30,3 +30,8 @@ def clean_csv():
     df.drop(df[df['state'] == 'AP'].index, inplace = True)
     # form new filtered csv
     df.to_csv('filtered_zip_codes.csv', index = False)
+
+
+def find_zips():
+    parent_dir = os.path.dirname(__file__)
+    df = pandas.read_csv(f'{parent_dir}/filtered_zip_codes.csv', delimiter = ',', header = 0, dtype = str)
