@@ -1,9 +1,12 @@
 import searchParameters
+import zipCodes
 import scrapeUrlFromSearch
 import scrapeInformationFromUrl
 import formCsvFromInformation
+
 from selenium import webdriver
 
+zip_list = []
 href_list = []
 business_information = {}
 answers = ['yes', 'no', 'y', 'n']

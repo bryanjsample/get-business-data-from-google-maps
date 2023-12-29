@@ -39,3 +39,6 @@ def end_or_new(answers, csv_write, test_do, test_new_file):
             csv_write = 'append'
     return (test_do, test_new_file, csv_write)
 
+def state_search():
+    state_names = ['']
+    state_full = input('What state would you like to search inside of? ')
