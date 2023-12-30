@@ -33,7 +33,6 @@ def scrape_urls(driver, load_num, href_list, search):
         if single_result not in href_list:
             #add it to the list
             href_list.append(single_result)
-            print(href_list)
             return
 
     #this will raise an exception until end of list is reached
