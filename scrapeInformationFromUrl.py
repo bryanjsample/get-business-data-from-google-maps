@@ -16,10 +16,11 @@ def scrape(driver, load_num, url, business_information):
             loaded = True
         except:
             print('\n' + 'DRIVER FAILURE : RESTARTING DRIVER' + '\n')
-            driver.get('https://www.bemidjistate.edu/services/health-counseling/')
+            time.sleep(2)
+            driver.refresh()
             loaded = False
             restart_num = compare + 1
-            time.sleep(5)
+            time.sleep(3)
             
     #time for browser to load
     time.sleep(1)
@@ -137,10 +138,11 @@ def parse_information(information_elements, info_elem):
     #format address and location
     for i in info_ls:
         if 'Located in:' in i or 'Floor ' in i:
-            address_location = info_ls[0] + ' | ' + info_ls[1]
-            info_ls.pop(0)
-            info_ls.pop(0)
-            info_ls.insert(0, address_location)
+            if len(info_ls) > 1:
+                address_location = info_ls[0] + ' | ' + info_ls[1]
+                info_ls.pop(0)
+                info_ls.pop(0)
+                info_ls.insert(0, address_location)
 
     for i in info_ls:
         #define address
