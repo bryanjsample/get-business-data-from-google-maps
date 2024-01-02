@@ -17,23 +17,32 @@ def scrape_urls(driver, load_num, href_list, search):
             loaded = True
         except:
             print('\n' + 'FAILURE' + '\n')
-            driver.get('https://www.bemidjistate.edu/services/health-counseling/')
+            time.sleep(2)
+            driver.refresh()
             loaded = False
             restart_num = compare + 1
-            time.sleep(5)
+            time.sleep(3)
 
     #wait 3 seconds for all contents to load        
     time.sleep(2)
-    #if there is only one search result, obtain the url and skip the rest
+    #check to see how many results there are
     try:
         div_to_scroll = driver.find_element(By.XPATH, "//div[contains(@aria-label, 'Results for')]")
         div_to_scroll.send_keys(Keys.ARROW_DOWN)
     except:
-        single_result = driver.current_url
-        if single_result not in href_list:
-            #add it to the list
-            href_list.append(single_result)
+        #if no results are present
+        try:
+            no_results_page = driver.find_element(By.XPATH, "//div[@class = 'Q2vNVc']")
+            no_results = no_results_page.get_attribute('textContent')
+            print(f'No results found for: {search}')
             return
+        #if one result is present
+        except:
+            single_result = driver.current_url
+            if single_result not in href_list:
+                #add it to the list
+                href_list.append(single_result)
+                return
 
     #this will raise an exception until end of list is reached
     bottom = ''

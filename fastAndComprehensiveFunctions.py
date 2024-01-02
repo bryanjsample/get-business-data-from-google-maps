@@ -44,16 +44,18 @@ def fast_search():
         dirs = formCsvFromInformation.create_dir()
         parent_dir = dirs[0]
         dir_name = dirs[1]
-
-        if new_file == 'yes' or new_file == 'y':
-            #write a new file
-            csv_count += 1
-            csv_name = f'data_{csv_count}'
-            formCsvFromInformation.formCsv(csv_write, business_information, parent_dir, dir_name, csv_name)
-        elif new_file == 'no' or new_file == 'n':
-            #write into an existing file
-            csv_name = f'data_{csv_count}'
-            formCsvFromInformation.formCsv(csv_write, business_information, parent_dir, dir_name, csv_name)
+        if len(business_information) == 0:
+            print('No business information found.')
+        else:
+            if new_file == 'yes' or new_file == 'y':
+                #write a new file
+                csv_count += 1
+                csv_name = f'data_{csv_count}'
+                formCsvFromInformation.formCsv(csv_write, business_information, parent_dir, dir_name, csv_name)
+            elif new_file == 'no' or new_file == 'n':
+                #write into an existing file
+                csv_name = f'data_{csv_count}'
+                formCsvFromInformation.formCsv(csv_write, business_information, parent_dir, dir_name, csv_name)
 
         #keep searching? if no, end program 
         #new file? if yes, next iteration will write in same file. if no, next iteration will write in new file.
@@ -102,16 +104,18 @@ def comprehensive_search():
         dirs = formCsvFromInformation.create_dir()
         parent_dir = dirs[0]
         dir_name = dirs[1]
-
-        if new_file == 'yes' or new_file == 'y':
-            #write a new file
-            csv_count += 1
-            csv_name = f'data_{csv_count}'
-            formCsvFromInformation.formCsv(csv_write, business_information, parent_dir, dir_name, csv_name)
-        elif new_file == 'no' or new_file == 'n':
-            #write into an existing file
-            csv_name = f'data_{csv_count}'
-            formCsvFromInformation.formCsv(csv_write, business_information, parent_dir, dir_name, csv_name)
+        if len(business_information) == 0:
+            print('No business information found.')
+        else:
+            if new_file == 'yes' or new_file == 'y':
+                #write a new file
+                csv_count += 1
+                csv_name = f'data_{csv_count}'
+                formCsvFromInformation.formCsv(csv_write, business_information, parent_dir, dir_name, csv_name)
+            elif new_file == 'no' or new_file == 'n':
+                #write into an existing file
+                csv_name = f'data_{csv_count}'
+                formCsvFromInformation.formCsv(csv_write, business_information, parent_dir, dir_name, csv_name)
 
         #keep searching? if no, end program 
         #new file? if yes, next iteration will write in same file. if no, next iteration will write in new file.
