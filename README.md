@@ -47,17 +47,17 @@
       2. User will be prompted with `What city would you like to search inside of?`
           - Input must be a city that is located inside of the selected state.
           - Example: `Colorado Springs`
-      3. `zipCodes.find_zip()` will form a list of all zip codes associated with that city.
+      3. [`zipCodes.find_zip()`](https://github.com/bryanjsample/get-business-data-from-google-maps/blob/8f4f7bbb4131b1429fe6c6eb8ed79729944f4ab2/zipCodes.py) will form a list of all zip codes associated with that city.
       3. User will be prompted with `What are you searching for? (Fast food, restaurants, businesses, etc.)`
           - The more specific, the better.
           - Examples: `Tech Companies`, `Fast Food`, `Businesses`, `Electric Companies`, etc.
-      4. `zipCodes.comp_searches()` will form a string that will be used to search google maps, then user will be prompted to confirm the search string.
+      4. [`zipCodes.comp_searches()`](https://github.com/bryanjsample/get-business-data-from-google-maps/blob/8f4f7bbb4131b1429fe6c6eb8ed79729944f4ab2/zipCodes.py) will form a string that will be used to search google maps, then user will be prompted to confirm the search string.
           - Example: 
               ```
               Searching for: 'Tech Companies in Colorado Springs, Colorado'
               Is that correct?
               ```
-      5. After confirmation, `zipCodes.comp_searches()` will form a list of search queries containing each zip code listed within the given city.
+      5. After confirmation, [`zipCodes.comp_searches()`](https://github.com/bryanjsample/get-business-data-from-google-maps/blob/8f4f7bbb4131b1429fe6c6eb8ed79729944f4ab2/zipCodes.py) will form a list of search queries containing each zip code listed within the given city.
           - Example:
               ```
               [
