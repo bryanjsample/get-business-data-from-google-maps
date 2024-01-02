@@ -111,15 +111,15 @@ def comp_searches():
     
     confirm = 'n'
     while confirm == 'n' or confirm == 'no':
-        state = input('What state would you like to search inside of? ').lower()
-        while state not in state_names:
-            state = input('State name not found, please enter a valid US state: ').lower()
-        state_abbr = state_names[state]
+        state = input('What state would you like to search inside of? ').title()
+        while state.lower() not in state_names:
+            state = input('State name not found, please enter a valid US state: ').title()
+        state_abbr = state_names[state.lower()]
         city = input('What city do you want to search? ').title()
         find_zip(zip_list, state_abbr, city)
         # form search string
         searches = []
-        search_topic = input('What are you searching for? (Fast food, restaurants, businesses, etc.) ')
+        search_topic = input('What are you searching for? (Fast food, restaurants, businesses, etc.) ').title()
         answers = ['yes', 'y', 'no', 'n']
         confirm = input(f"\nSearching for: '{search_topic} in {city}, {state}'\nIs that correct? (y or n) ").lower()
         while confirm not in answers:
